@@ -66,9 +66,9 @@ setup(
     include_package_data=True,
     install_requires=[
         "eth-abi>=5.1.0,<6",
-        "eth-account>=0.12.1,<0.14",
-        "eth-typing>=4.1.0,<5",
-        "eth-utils>=4.1.0,<5",
+        "eth-account>=0.13.1,<0.14",
+        "eth-typing>=5.0.0,<6",
+        "eth-utils>=5.0.0,<6",
         "hexbytes>=1.2.0,<2",
         "pydantic>=2.5.2,<3",
     ],
