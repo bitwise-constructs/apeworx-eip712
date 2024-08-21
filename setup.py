@@ -65,12 +65,12 @@ setup(
     url="https://github.com/ApeWorX/eip712",
     include_package_data=True,
     install_requires=[
-        "dataclassy>=0.11.1,<1",
         "eth-abi>=5.1.0,<6",
         "eth-account>=0.12.1,<0.14",
         "eth-typing>=4.1.0,<5",
         "eth-utils>=4.1.0,<5",
         "hexbytes>=1.2.0,<2",
+        "pydantic>=2.5.2,<3",
     ],
     python_requires=">=3.9,<4",
     extras_require=extras_require,
