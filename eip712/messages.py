@@ -2,16 +2,18 @@
 Message classes for typed structured data hashing and signing in Ethereum.
 """
 
-from typing import Any, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from eth_abi.abi import is_encodable_type  # type: ignore[import-untyped]
 from eth_account.messages import SignableMessage, hash_domain, hash_eip712_message
 from eth_pydantic_types import Address, HexBytes
-from eth_pydantic_types.abi import bytes32, string, uint256
 from eth_utils import keccak
 from eth_utils.curried import ValidationError
 from pydantic import BaseModel, model_validator
 from typing_extensions import _AnnotatedAlias
+
+if TYPE_CHECKING:
+    from eth_pydantic_types.abi import bytes32, string, uint256
 
 # ! Do not change the order of the fields in this list !
 # To correctly encode and hash the domain fields, they
@@ -50,7 +52,7 @@ class EIP712Type(BaseModel):
         types: dict[str, list] = {repr(self): []}
 
         for field in {
-            k: v.annotation.__name__
+            k: v.annotation.__name__ # type: ignore[union-attr]
             for k, v in self.model_fields.items()
             if not k.startswith("eip712_")
         }:
@@ -116,11 +118,11 @@ class EIP712Message(EIP712Type):
     """
 
     # NOTE: Must override at least one of these fields
-    eip712_name_: Optional[string] = None
-    eip712_version_: Optional[string] = None
-    eip712_chainId_: Optional[uint256] = None
-    eip712_verifyingContract_: Optional[string] = None
-    eip712_salt_: Optional[bytes32] = None
+    eip712_name_: Optional["string"] = None
+    eip712_version_: Optional["string"] = None
+    eip712_chainId_: Optional["uint256"] = None
+    eip712_verifyingContract_: Optional["string"] = None
+    eip712_salt_: Optional["bytes32"] = None
 
     @model_validator(mode="after")
     @classmethod
